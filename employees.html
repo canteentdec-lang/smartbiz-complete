@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBiz – Employees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">💼</div>
+    <div class="brand-name">Smart<span>Biz</span></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+    <a href="index.html"     class="nav-item" data-page="index.html"><span class="nav-icon">🏠</span><span class="nav-text">Dashboard</span></a>
+    <a href="sales.html"     class="nav-item" data-page="sales.html"><span class="nav-icon">💰</span><span class="nav-text">Sales / Billing</span></a>
+    <a href="products.html"  class="nav-item" data-page="products.html"><span class="nav-icon">📦</span><span class="nav-text">Products</span></a>
+    <a href="analytics.html" class="nav-item" data-page="analytics.html"><span class="nav-icon">📊</span><span class="nav-text">Analytics</span></a>
+    <a href="employees.html" class="nav-item" data-page="employees.html"><span class="nav-icon">👥</span><span class="nav-text">Employees</span></a>
+    <div class="nav-label" style="margin-top:10px">Business</div>
+    <a href="#" class="nav-item"><span class="nav-icon">📣</span><span class="nav-text">Marketing</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">📄</span><span class="nav-text">Reports</span></a>
+    <div class="nav-label" style="margin-top:10px">System</div>
+    <a href="#" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">RK</div>
+      <div class="user-info"><div class="user-name">Raj Kumar</div><div class="user-role">Administrator</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main-wrapper">
+  <header class="header">
+    <button class="header-menu-btn" id="menuBtn">☰</button>
+    <div class="header-title">Employees</div>
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search employees…" />
+    </div>
+    <div class="header-actions">
+      <span class="header-date" id="headerDate"></span>
+      <button class="header-icon-btn">🔔<span class="notif-dot"></span></button>
+      <button class="header-icon-btn">⚙️</button>
+      <div class="header-profile">
+        <div class="profile-avatar">RK</div>
+        <span class="profile-name">Raj Kumar</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Employee Management</h1>
+        <p>Manage your team members, roles, salaries and performance.</p>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-primary btn-sm" onclick="openModal('addEmpModal')">+ Add Employee</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid section-gap">
+      <div class="stat-card">
+        <div class="stat-icon gradient-primary">👥</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalEmpStat">0</div>
+          <div class="stat-label">Total Employees</div>
+          <div class="stat-growth up">▲ Growing team</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-success">✅</div>
+        <div class="stat-body">
+          <div class="stat-value" id="activeEmpStat">0</div>
+          <div class="stat-label">Active</div>
+          <div class="stat-growth up">▲ Fully staffed</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-warning">🏖️</div>
+        <div class="stat-body">
+          <div class="stat-value" id="leaveEmpStat">0</div>
+          <div class="stat-label">On Leave</div>
+          <div class="stat-growth down">▼ Temporarily away</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-secondary">💵</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalSalaryStat">₹0</div>
+          <div class="stat-label">Monthly Payroll</div>
+          <div class="stat-growth up">▲ Total cost</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employee Table -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Employee Directory</div>
+          <div class="card-subtitle" id="empCount">Loading…</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <div class="table-search">
+            <span class="table-search-icon">🔍</span>
+            <input type="text" id="empSearch" placeholder="Search employees…" />
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="exportTableCSV('empTable','SmartBiz-Employees.csv')">📥 Export</button>
+        </div>
+      </div>
+      <div class="card-body no-pad">
+        <div class="table-wrapper">
+          <table class="data-table" id="empTable">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Employee</th>
+                <th>Role / Designation</th>
+                <th>Department</th>
+                <th>Phone</th>
+                <th>Salary</th>
+                <th>Joining Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="empTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal-overlay" id="addEmpModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header">
+      <h3 class="modal-title">➕ Add New Employee</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Full Name <span>*</span></label>
+          <input type="text" class="form-control" id="empName" placeholder="e.g. Priya Sharma" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Employee ID</label>
+          <input type="text" class="form-control" id="empId" placeholder="Auto-generated" readonly style="background:#f9fafb" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role / Designation <span>*</span></label>
+          <input type="text" class="form-control" id="empRole" placeholder="e.g. Sales Manager" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Department <span>*</span></label>
+          <div class="select-wrapper">
+            <select class="form-control" id="empDept">
+              <option value="">Select department</option>
+              <option>Sales</option>
+              <option>Marketing</option>
+              <option>Operations</option>
+              <option>Finance</option>
+              <option>IT</option>
+              <option>HR</option>
+              <option>Warehouse</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="empPhone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="empEmail" placeholder="employee@company.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly Salary (₹) <span>*</span></label>
+          <input type="number" class="form-control" id="empSalary" placeholder="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Joining Date</label>
+          <input type="date" class="form-control" id="empJoining" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="empStatus">
+              <option value="Active">Active</option>
+              <option value="On Leave">On Leave</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="empGender">
+              <option value="">Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('addEmpModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="addEmployee()">Add Employee</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Employee Modal -->
+<div class="modal-overlay" id="editEmpModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header">
+      <h3 class="modal-title">✏️ Edit Employee</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <input type="hidden" id="editEmpIdx" />
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="editEmpName" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role / Designation</label>
+          <input type="text" class="form-control" id="editEmpRole" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Department</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="editEmpDept">
+              <option>Sales</option><option>Marketing</option><option>Operations</option>
+              <option>Finance</option><option>IT</option><option>HR</option><option>Warehouse</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="editEmpPhone" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Salary (₹/month)</label>
+          <input type="number" class="form-control" id="editEmpSalary" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="editEmpStatus">
+              <option>Active</option><option>On Leave</option><option>Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('editEmpModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditEmployee()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  const AVATAR_COLORS = ['#6366F1','#14B8A6','#22C55E','#F59E0B','#EF4444','#8B5CF6','#06B6D4','#EC4899'];
+
+  let employees = [
+    { id:'EMP-001', name:'Priya Sharma',   role:'Sales Manager',      dept:'Sales',      phone:'+91 98765 43210', email:'priya@smartbiz.in',   salary:55000, joining:'2023-06-15', status:'Active',   gender:'Female' },
+    { id:'EMP-002', name:'Rahul Verma',    role:'Marketing Executive', dept:'Marketing',  phone:'+91 87654 32109', email:'rahul@smartbiz.in',   salary:42000, joining:'2022-11-01', status:'Active',   gender:'Male' },
+    { id:'EMP-003', name:'Anita Patel',    role:'Finance Analyst',     dept:'Finance',    phone:'+91 76543 21098', email:'anita@smartbiz.in',   salary:60000, joining:'2021-03-20', status:'Active',   gender:'Female' },
+    { id:'EMP-004', name:'Kiran Mehta',    role:'Warehouse In-charge', dept:'Warehouse',  phone:'+91 65432 10987', email:'kiran@smartbiz.in',   salary:32000, joining:'2024-01-10', status:'On Leave', gender:'Male' },
+    { id:'EMP-005', name:'Suresh Iyer',    role:'IT Support',          dept:'IT',         phone:'+91 54321 09876', email:'suresh@smartbiz.in',  salary:48000, joining:'2022-07-05', status:'Active',   gender:'Male' },
+    { id:'EMP-006', name:'Meena Rao',      role:'HR Manager',          dept:'HR',         phone:'+91 43210 98765', email:'meena@smartbiz.in',   salary:58000, joining:'2020-09-12', status:'Active',   gender:'Female' },
+    { id:'EMP-007', name:'Deepak Singh',   role:'Sales Executive',     dept:'Sales',      phone:'+91 32109 87654', email:'deepak@smartbiz.in',  salary:35000, joining:'2024-03-01', status:'Active',   gender:'Male' },
+    { id:'EMP-008', name:'Kavita Joshi',   role:'Operations Lead',     dept:'Operations', phone:'+91 21098 76543', email:'kavita@smartbiz.in',  salary:52000, joining:'2021-12-15', status:'On Leave', gender:'Female' },
+  ];
+  let empCounter = 9;
+
+  function initials(name) {
+    return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  }
+
+  function avatarColor(name) {
+    let h = 0; for (const c of name) h += c.charCodeAt(0);
+    return AVATAR_COLORS[h % AVATAR_COLORS.length];
+  }
+
+  function statusBadge(s) {
+    const cls = s==='Active'?'badge-success': s==='On Leave'?'badge-warning':'badge-danger';
+    return `<span class="badge ${cls}">${s}</span>`;
+  }
+
+  function renderEmployees() {
+    const tbody = document.getElementById('empTableBody');
+    tbody.innerHTML = employees.map((e,i) => `
+      <tr>
+        <td><span style="font-weight:600;color:var(--primary)">${e.id}</span></td>
+        <td>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;border-radius:50%;background:${avatarColor(e.name)};
+                        display:flex;align-items:center;justify-content:center;
+                        color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0">
+              ${initials(e.name)}
+            </div>
+            <div>
+              <div style="font-weight:600">${e.name}</div>
+              <div style="font-size:.75rem;color:var(--text-muted)">${e.email}</div>
+            </div>
+          </div>
+        </td>
+        <td>${e.role}</td>
+        <td><span class="badge badge-primary">${e.dept}</span></td>
+        <td>${e.phone}</td>
+        <td><strong>₹${e.salary.toLocaleString('en-IN')}</strong></td>
+        <td>${new Date(e.joining).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</td>
+        <td>${statusBadge(e.status)}</td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-icon btn-sm" title="Edit" onclick="openEditEmp(${i})">✏️</button>
+            <button class="btn btn-ghost btn-icon btn-sm" title="Delete" onclick="deleteEmployee(${i})" style="color:var(--danger)">🗑️</button>
+          </div>
+        </td>
+      </tr>`
+    ).join('') || `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted)">No employees found.</td></tr>`;
+
+    const active  = employees.filter(e=>e.status==='Active').length;
+    const onLeave = employees.filter(e=>e.status==='On Leave').length;
+    const payroll = employees.reduce((a,e)=>a+e.salary,0);
+    document.getElementById('totalEmpStat').textContent   = employees.length;
+    document.getElementById('activeEmpStat').textContent  = active;
+    document.getElementById('leaveEmpStat').textContent   = onLeave;
+    document.getElementById('totalSalaryStat').textContent= '₹'+payroll.toLocaleString('en-IN');
+    document.getElementById('empCount').textContent       = `${employees.length} employees`;
+  }
+
+  // Auto-fill ID in add modal
+  document.getElementById('empId').value = `EMP-${String(empCounter).padStart(3,'0')}`;
+
+  function addEmployee() {
+    const name    = document.getElementById('empName').value.trim();
+    const role    = document.getElementById('empRole').value.trim();
+    const dept    = document.getElementById('empDept').value;
+    const phone   = document.getElementById('empPhone').value.trim();
+    const email   = document.getElementById('empEmail').value.trim();
+    const salary  = parseInt(document.getElementById('empSalary').value)||0;
+    const joining = document.getElementById('empJoining').value || new Date().toISOString().split('T')[0];
+    const status  = document.getElementById('empStatus').value;
+    const gender  = document.getElementById('empGender').value;
+
+    if (!name || !role || !dept || !salary) { showToast('Fill in all required fields.','danger'); return; }
+
+    employees.push({
+      id:`EMP-${String(empCounter).padStart(3,'0')}`,
+      name, role, dept, phone, email, salary, joining, status, gender
+    });
+    empCounter++;
+    document.getElementById('empId').value = `EMP-${String(empCounter).padStart(3,'0')}`;
+
+    renderEmployees();
+    closeModal('addEmpModal');
+    // Clear fields
+    ['empName','empRole','empPhone','empEmail','empSalary','empJoining'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('empDept').value='';
+    document.getElementById('empStatus').value='Active';
+    showToast('Employee added successfully!','success');
+  }
+
+  async function deleteEmployee(i) {
+    const ok = await confirmDelete(`Remove <strong>${employees[i].name}</strong> from the system?`);
+    if (ok) { employees.splice(i,1); renderEmployees(); showToast('Employee removed.','danger'); }
+  }
+
+  function openEditEmp(i) {
+    const e = employees[i];
+    document.getElementById('editEmpIdx').value    = i;
+    document.getElementById('editEmpName').value   = e.name;
+    document.getElementById('editEmpRole').value   = e.role;
+    document.getElementById('editEmpDept').value   = e.dept;
+    document.getElementById('editEmpPhone').value  = e.phone;
+    document.getElementById('editEmpSalary').value = e.salary;
+    document.getElementById('editEmpStatus').value = e.status;
+    openModal('editEmpModal');
+  }
+
+  function saveEditEmployee() {
+    const i = parseInt(document.getElementById('editEmpIdx').value);
+    employees[i] = {
+      ...employees[i],
+      name:   document.getElementById('editEmpName').value,
+      role:   document.getElementById('editEmpRole').value,
+      dept:   document.getElementById('editEmpDept').value,
+      phone:  document.getElementById('editEmpPhone').value,
+      salary: parseInt(document.getElementById('editEmpSalary').value)||0,
+      status: document.getElementById('editEmpStatus').value,
+    };
+    renderEmployees();
+    closeModal('editEmpModal');
+    showToast('Employee updated!','success');
+  }
+
+  // Set today as default joining date
+  document.getElementById('empJoining').value = new Date().toISOString().split('T')[0];
+
+  initTableSearch('empSearch','empTable');
+  renderEmployees();
+</script>
+</body>
+</html>

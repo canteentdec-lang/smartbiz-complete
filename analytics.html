@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBiz – Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">💼</div>
+    <div class="brand-name">Smart<span>Biz</span></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+    <a href="index.html"     class="nav-item" data-page="index.html"><span class="nav-icon">🏠</span><span class="nav-text">Dashboard</span></a>
+    <a href="sales.html"     class="nav-item" data-page="sales.html"><span class="nav-icon">💰</span><span class="nav-text">Sales / Billing</span></a>
+    <a href="products.html"  class="nav-item" data-page="products.html"><span class="nav-icon">📦</span><span class="nav-text">Products</span></a>
+    <a href="analytics.html" class="nav-item" data-page="analytics.html"><span class="nav-icon">📊</span><span class="nav-text">Analytics</span></a>
+    <a href="employees.html" class="nav-item" data-page="employees.html"><span class="nav-icon">👥</span><span class="nav-text">Employees</span></a>
+    <div class="nav-label" style="margin-top:10px">Business</div>
+    <a href="#" class="nav-item"><span class="nav-icon">📣</span><span class="nav-text">Marketing</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">📄</span><span class="nav-text">Reports</span></a>
+    <div class="nav-label" style="margin-top:10px">System</div>
+    <a href="#" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">RK</div>
+      <div class="user-info"><div class="user-name">Raj Kumar</div><div class="user-role">Administrator</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main-wrapper">
+  <header class="header">
+    <button class="header-menu-btn" id="menuBtn">☰</button>
+    <div class="header-title">Analytics</div>
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search analytics…" />
+    </div>
+    <div class="header-actions">
+      <span class="header-date" id="headerDate"></span>
+      <button class="header-icon-btn">🔔<span class="notif-dot"></span></button>
+      <button class="header-icon-btn">⚙️</button>
+      <div class="header-profile">
+        <div class="profile-avatar">RK</div>
+        <span class="profile-name">Raj Kumar</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Business Analytics</h1>
+        <p>Gain deep insights into your business performance and growth trends.</p>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-outline btn-sm" onclick="showToast('Report downloaded!','success')">📥 Download Report</button>
+        <button class="btn btn-primary btn-sm">📊 Custom Report</button>
+      </div>
+    </div>
+
+    <!-- KPI Stats -->
+    <div class="stats-grid section-gap">
+      <div class="stat-card">
+        <div class="stat-icon gradient-primary">📈</div>
+        <div class="stat-body">
+          <div class="stat-value">₹38.4L</div>
+          <div class="stat-label">Annual Revenue</div>
+          <div class="stat-growth up">▲ 24.6% YoY</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-secondary">🛒</div>
+        <div class="stat-body">
+          <div class="stat-value">15,284</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-growth up">▲ 18.2% YoY</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-success">💰</div>
+        <div class="stat-body">
+          <div class="stat-value">₹2,514</div>
+          <div class="stat-label">Avg Order Value</div>
+          <div class="stat-growth up">▲ 5.4% MoM</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-warning">🔄</div>
+        <div class="stat-body">
+          <div class="stat-value">68.4%</div>
+          <div class="stat-label">Customer Retention</div>
+          <div class="stat-growth up">▲ 3.2% MoM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Charts Row -->
+    <div class="charts-grid section-gap">
+      <!-- 12 Month Revenue -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Revenue & Profit Trends</div>
+            <div class="card-subtitle">12-month comparison</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <span class="badge badge-primary">● Revenue</span>
+            <span class="badge badge-success">● Profit</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:300px">
+            <canvas id="revProfitChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Growth -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Monthly Growth %</div>
+            <div class="card-subtitle">Revenue growth rate</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:300px">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="two-col-grid section-gap">
+      <!-- Category Sales Breakdown -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Sales by Category</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:240px">
+            <canvas id="catSalesChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Products -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Top Selling Products</div>
+          <span class="badge badge-primary">This Month</span>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div class="mini-list">
+            <div class="mini-list-item">
+              <div class="mini-rank" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff">1</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Wireless Earbuds Pro</div>
+                <div class="mini-list-sub">284 units · Electronics</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
+              </div>
+              <div class="mini-list-value">₹1,42,000</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank" style="background:linear-gradient(135deg,#14B8A6,#06B6D4);color:#fff">2</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Smart Watch Series 5</div>
+                <div class="mini-list-sub">196 units · Electronics</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:68%;background:var(--grad-analytics)"></div></div>
+              </div>
+              <div class="mini-list-value">₹98,000</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank" style="background:linear-gradient(135deg,#22C55E,#4ADE80);color:#fff">3</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Premium Backpack</div>
+                <div class="mini-list-sub">158 units · Accessories</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:54%;background:var(--grad-revenue)"></div></div>
+              </div>
+              <div class="mini-list-value">₹63,200</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">4</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Running Sneakers X</div>
+                <div class="mini-list-sub">112 units · Footwear</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
+              </div>
+              <div class="mini-list-value">₹56,000</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">5</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Desk Organizer Set</div>
+                <div class="mini-list-sub">134 units · Office</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:29%"></div></div>
+              </div>
+              <div class="mini-list-value">₹26,800</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third Row – Traffic & Conversion -->
+    <div class="three-col-grid section-gap">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Conversion Rate</div>
+        </div>
+        <div class="card-body" style="text-align:center">
+          <div class="chart-container" style="height:180px">
+            <canvas id="conversionChart"></canvas>
+          </div>
+          <div style="margin-top:12px;font-size:2rem;font-weight:800;color:var(--primary)">72.4%</div>
+          <div style="font-size:.8rem;color:var(--text-secondary)">Order to delivery rate</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Channel Performance</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:180px">
+            <canvas id="channelChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Business Health</div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:600">Revenue Target</span>
+                <span style="font-size:.82rem;color:var(--success);font-weight:700">84%</span>
+              </div>
+              <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:84%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:600">Customer Satisfaction</span>
+                <span style="font-size:.82rem;color:var(--secondary);font-weight:700">91%</span>
+              </div>
+              <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:91%;background:var(--grad-analytics)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:600">Inventory Health</span>
+                <span style="font-size:.82rem;color:var(--warning);font-weight:700">67%</span>
+              </div>
+              <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:67%;background:var(--grad-warning)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:600">Employee Performance</span>
+                <span style="font-size:.82rem;color:var(--success);font-weight:700">88%</span>
+              </div>
+              <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:88%;background:var(--grad-revenue)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:600">Marketing ROI</span>
+                <span style="font-size:.82rem;color:var(--primary);font-weight:700">74%</span>
+              </div>
+              <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:74%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  // Revenue & Profit
+  const ctx1 = document.getElementById('revProfitChart').getContext('2d');
+  const revGrad = ctx1.createLinearGradient(0,0,0,300);
+  revGrad.addColorStop(0,'rgba(99,102,241,.3)'); revGrad.addColorStop(1,'rgba(99,102,241,0)');
+  const profGrad = ctx1.createLinearGradient(0,0,0,300);
+  profGrad.addColorStop(0,'rgba(34,197,94,.25)'); profGrad.addColorStop(1,'rgba(34,197,94,0)');
+
+  new Chart(ctx1, {
+    type:'line',
+    data:{
+      labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+      datasets:[
+        { label:'Revenue (₹k)', data:[280,310,295,380,420,445,420,580,510,690,740,842],
+          borderColor:'#6366F1', backgroundColor:revGrad, borderWidth:2.5, tension:.4, fill:true,
+          pointBackgroundColor:'#6366F1', pointBorderColor:'#fff', pointBorderWidth:2, pointRadius:4 },
+        { label:'Profit (₹k)',  data:[84,96,88,118,138,144,130,188,162,224,242,284],
+          borderColor:'#22C55E', backgroundColor:profGrad, borderWidth:2.5, tension:.4, fill:true,
+          pointBackgroundColor:'#22C55E', pointBorderColor:'#fff', pointBorderWidth:2, pointRadius:4 },
+      ]
+    },
+    options:{
+      ...chartDefaults,
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{family:'Inter',size:11},color:'#6B7280'}},
+        y:{grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{family:'Inter',size:11},color:'#6B7280',callback:v=>v+'k'}}
+      }
+    }
+  });
+
+  // Monthly Growth
+  const ctx2 = document.getElementById('growthChart').getContext('2d');
+  const growGrad = ctx2.createLinearGradient(0,0,0,300);
+  growGrad.addColorStop(0,'#14B8A6'); growGrad.addColorStop(1,'#06B6D4');
+  new Chart(ctx2, {
+    type:'bar',
+    data:{
+      labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+      datasets:[{ label:'Growth %',
+        data:[8.2,10.7,-5.0,28.8,10.5,5.7,-5.7,38.1,-11.9,35.3,7.2,13.8],
+        backgroundColor: ctx2 => ctx2.raw >= 0 ? 'rgba(20,184,166,.85)' : 'rgba(239,68,68,.8)',
+        borderRadius:6, borderSkipped:false }]
+    },
+    options:{
+      ...chartDefaults,
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{family:'Inter',size:11},color:'#6B7280'}},
+        y:{grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{family:'Inter',size:11},color:'#6B7280',callback:v=>v+'%'}}
+      }
+    }
+  });
+
+  // Category Bar
+  new Chart(document.getElementById('catSalesChart'), {
+    type:'bar',
+    data:{
+      labels:['Electronics','Accessories','Office','Footwear','Clothing','Other'],
+      datasets:[{
+        label:'Sales (₹k)',
+        data:[480,220,150,140,80,110],
+        backgroundColor:['#6366F1','#14B8A6','#22C55E','#F59E0B','#EF4444','#8B5CF6'],
+        borderRadius:8, borderSkipped:false
+      }]
+    },
+    options:{
+      ...chartDefaults,
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{family:'Inter',size:11},color:'#6B7280'}},
+        y:{grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{family:'Inter',size:11},color:'#6B7280',callback:v=>v+'k'}}
+      }
+    }
+  });
+
+  // Conversion Donut
+  new Chart(document.getElementById('conversionChart'), {
+    type:'doughnut',
+    data:{
+      labels:['Converted','Dropped'],
+      datasets:[{
+        data:[72.4, 27.6],
+        backgroundColor:['#6366F1','#E5E7EB'],
+        borderWidth:0, hoverOffset:6
+      }]
+    },
+    options:{ ...chartDefaults, cutout:'78%', plugins:{ legend:{display:false}, tooltip:chartDefaults.plugins.tooltip } }
+  });
+
+  // Channel Pie
+  new Chart(document.getElementById('channelChart'), {
+    type:'doughnut',
+    data:{
+      labels:['Online Store','Direct Walk-in','WhatsApp','Referral','Other'],
+      datasets:[{
+        data:[45, 25, 15, 10, 5],
+        backgroundColor:['#6366F1','#14B8A6','#22C55E','#F59E0B','#9CA3AF'],
+        borderWidth:0, hoverOffset:6
+      }]
+    },
+    options:{
+      ...chartDefaults, cutout:'65%',
+      plugins:{ ...chartDefaults.plugins, legend:{ ...chartDefaults.plugins.legend, position:'bottom' } }
+    }
+  });
+</script>
+</body>
+</html>

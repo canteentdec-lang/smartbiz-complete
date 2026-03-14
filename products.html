@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBiz – Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">💼</div>
+    <div class="brand-name">Smart<span>Biz</span></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+    <a href="index.html"     class="nav-item" data-page="index.html"><span class="nav-icon">🏠</span><span class="nav-text">Dashboard</span></a>
+    <a href="sales.html"     class="nav-item" data-page="sales.html"><span class="nav-icon">💰</span><span class="nav-text">Sales / Billing</span></a>
+    <a href="products.html"  class="nav-item" data-page="products.html"><span class="nav-icon">📦</span><span class="nav-text">Products</span></a>
+    <a href="analytics.html" class="nav-item" data-page="analytics.html"><span class="nav-icon">📊</span><span class="nav-text">Analytics</span></a>
+    <a href="employees.html" class="nav-item" data-page="employees.html"><span class="nav-icon">👥</span><span class="nav-text">Employees</span></a>
+    <div class="nav-label" style="margin-top:10px">Business</div>
+    <a href="#" class="nav-item"><span class="nav-icon">📣</span><span class="nav-text">Marketing</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">📄</span><span class="nav-text">Reports</span></a>
+    <div class="nav-label" style="margin-top:10px">System</div>
+    <a href="#" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">RK</div>
+      <div class="user-info"><div class="user-name">Raj Kumar</div><div class="user-role">Administrator</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main-wrapper">
+  <header class="header">
+    <button class="header-menu-btn" id="menuBtn">☰</button>
+    <div class="header-title">Products / Inventory</div>
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search products…" />
+    </div>
+    <div class="header-actions">
+      <span class="header-date" id="headerDate"></span>
+      <button class="header-icon-btn">🔔<span class="notif-dot"></span></button>
+      <button class="header-icon-btn">⚙️</button>
+      <div class="header-profile">
+        <div class="profile-avatar">RK</div>
+        <span class="profile-name">Raj Kumar</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Products / Inventory</h1>
+        <p>Manage your product catalog and track stock levels.</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid section-gap">
+      <div class="stat-card">
+        <div class="stat-icon gradient-primary">📦</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalProdStat">0</div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-growth up">▲ Active catalog</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-secondary">🏷️</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalCatStat">0</div>
+          <div class="stat-label">Categories</div>
+          <div class="stat-growth up">▲ Well organized</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-success">✅</div>
+        <div class="stat-body">
+          <div class="stat-value" id="inStockStat">0</div>
+          <div class="stat-label">In Stock</div>
+          <div class="stat-growth up">▲ Ready to sell</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-warning">⚠️</div>
+        <div class="stat-body">
+          <div class="stat-value" id="lowStockStat">0</div>
+          <div class="stat-label">Low Stock (≤10)</div>
+          <div class="stat-growth down">▼ Needs restocking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="card section-gap">
+      <div class="card-header">
+        <div>
+          <div class="card-title">➕ Add New Product</div>
+          <div class="card-subtitle">Fill in the product details below</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Product Name <span>*</span></label>
+            <input type="text" class="form-control" id="prodName" placeholder="e.g. Wireless Earbuds" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category <span>*</span></label>
+            <div class="select-wrapper">
+              <select class="form-control" id="prodCat">
+                <option value="">Select category</option>
+                <option>Electronics</option>
+                <option>Accessories</option>
+                <option>Office</option>
+                <option>Footwear</option>
+                <option>Clothing</option>
+                <option>Food & Beverage</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Selling Price (₹) <span>*</span></label>
+            <input type="number" class="form-control" id="prodPrice" placeholder="0.00" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost Price (₹)</label>
+            <input type="number" class="form-control" id="prodCost" placeholder="0.00" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stock Quantity <span>*</span></label>
+            <input type="number" class="form-control" id="prodStock" placeholder="0" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">SKU / Product Code</label>
+            <input type="text" class="form-control" id="prodSKU" placeholder="e.g. SKU-001" />
+          </div>
+          <div class="form-group span-full">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-control" id="prodDesc" placeholder="Short product description" />
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:16px">
+          <button class="btn btn-outline" onclick="resetProdForm()">↺ Reset</button>
+          <button class="btn btn-primary" onclick="addProduct()">✓ Add Product</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Product Inventory</div>
+          <div class="card-subtitle" id="prodCount">Loading…</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <div class="table-search">
+            <span class="table-search-icon">🔍</span>
+            <input type="text" id="prodSearch" placeholder="Search products…" />
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="exportTableCSV('productsTable','SmartBiz-Products.csv')">📥 Export</button>
+        </div>
+      </div>
+      <div class="card-body no-pad">
+        <div class="table-wrapper">
+          <table class="data-table" id="productsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>SKU</th>
+                <th>Selling Price</th>
+                <th>Cost</th>
+                <th>Margin</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal-overlay" id="editProdModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">✏️ Edit Product</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <input type="hidden" id="editProdIdx" />
+        <div class="form-group">
+          <label class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="editProdName" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="editProdCat">
+              <option>Electronics</option><option>Accessories</option>
+              <option>Office</option><option>Footwear</option>
+              <option>Clothing</option><option>Food & Beverage</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Selling Price (₹)</label>
+          <input type="number" class="form-control" id="editProdPrice" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cost Price (₹)</label>
+          <input type="number" class="form-control" id="editProdCost" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stock Quantity</label>
+          <input type="number" class="form-control" id="editProdStock" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">SKU</label>
+          <input type="text" class="form-control" id="editProdSKU" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('editProdModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditProduct()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  let products = [
+    { name:'Wireless Earbuds Pro', cat:'Electronics', price:4999, cost:2200, stock:84, sku:'SKU-001', desc:'' },
+    { name:'Smart Watch Series 5',  cat:'Electronics', price:8499, cost:4500, stock:45, sku:'SKU-002', desc:'' },
+    { name:'Premium Backpack',       cat:'Accessories', price:2199, cost:1100, stock:120, sku:'SKU-003', desc:'' },
+    { name:'Desk Organizer Set',     cat:'Office',      price:899,  cost:350,  stock:8,   sku:'SKU-004', desc:'' },
+    { name:'Running Sneakers X',     cat:'Footwear',    price:3499, cost:1800, stock:36, sku:'SKU-005', desc:'' },
+    { name:'Bluetooth Speaker',      cat:'Electronics', price:1999, cost:950,  stock:5,  sku:'SKU-006', desc:'' },
+    { name:'Yoga Mat Premium',       cat:'Other',       price:749,  cost:300,  stock:60, sku:'SKU-007', desc:'' },
+    { name:'Casual Cotton Tee',      cat:'Clothing',    price:499,  cost:180,  stock:200, sku:'SKU-008', desc:'' },
+  ];
+  let prodCounter = 9;
+
+  function stockStatus(stock) {
+    if (stock === 0) return '<span class="badge badge-danger">Out of Stock</span>';
+    if (stock <= 10) return '<span class="badge badge-warning">Low Stock</span>';
+    return '<span class="badge badge-success">In Stock</span>';
+  }
+
+  function renderProducts() {
+    const tbody = document.getElementById('productsTableBody');
+    tbody.innerHTML = products.map((p,i) => {
+      const margin = p.price && p.cost ? Math.round(((p.price-p.cost)/p.price)*100) : 0;
+      return `<tr>
+        <td><span style="font-weight:600;color:var(--primary)">#${String(i+1).padStart(3,'0')}</span></td>
+        <td><div><strong>${p.name}</strong>${p.desc?`<br><span style="font-size:.75rem;color:var(--text-muted)">${p.desc}</span>`:''}</div></td>
+        <td><span class="badge badge-secondary">${p.cat}</span></td>
+        <td><code style="font-size:.78rem;background:#f3f4f6;padding:2px 6px;border-radius:4px">${p.sku||'—'}</code></td>
+        <td><strong>₹${p.price.toLocaleString('en-IN')}</strong></td>
+        <td>₹${p.cost.toLocaleString('en-IN')}</td>
+        <td>
+          <span style="color:${margin>=40?'var(--success)':margin>=20?'var(--warning)':'var(--danger)';font-weight:600}">${margin}%</span>
+        </td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-weight:600">${p.stock}</span>
+            <div class="progress-bar" style="width:60px">
+              <div class="progress-fill" style="width:${Math.min(p.stock,100)}%;background:${p.stock<=10?'var(--danger)':p.stock<=30?'var(--warning)':'var(--success)'}"></div>
+            </div>
+          </div>
+        </td>
+        <td>${stockStatus(p.stock)}</td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-icon btn-sm" title="Edit" onclick="openEditProd(${i})">✏️</button>
+            <button class="btn btn-ghost btn-icon btn-sm" title="Delete" onclick="deleteProd(${i})" style="color:var(--danger)">🗑️</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">No products found.</td></tr>`;
+
+    const cats   = [...new Set(products.map(p=>p.cat))].length;
+    const inStock= products.filter(p=>p.stock>10).length;
+    const lowSt  = products.filter(p=>p.stock<=10).length;
+    document.getElementById('totalProdStat').textContent = products.length;
+    document.getElementById('totalCatStat').textContent  = cats;
+    document.getElementById('inStockStat').textContent   = inStock;
+    document.getElementById('lowStockStat').textContent  = lowSt;
+    document.getElementById('prodCount').textContent     = `${products.length} products`;
+  }
+
+  function addProduct() {
+    const name  = document.getElementById('prodName').value.trim();
+    const cat   = document.getElementById('prodCat').value;
+    const price = parseFloat(document.getElementById('prodPrice').value)||0;
+    const cost  = parseFloat(document.getElementById('prodCost').value)||0;
+    const stock = parseInt(document.getElementById('prodStock').value)||0;
+    const sku   = document.getElementById('prodSKU').value.trim() || `SKU-${String(prodCounter).padStart(3,'0')}`;
+    const desc  = document.getElementById('prodDesc').value.trim();
+
+    if (!name || !cat || !price) { showToast('Please fill required fields.','danger'); return; }
+    products.unshift({ name, cat, price, cost, stock, sku, desc });
+    prodCounter++;
+    renderProducts();
+    resetProdForm();
+    showToast('Product added!','success');
+  }
+
+  function resetProdForm() {
+    ['prodName','prodPrice','prodCost','prodStock','prodSKU','prodDesc'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('prodCat').value='';
+  }
+
+  async function deleteProd(i) {
+    const ok = await confirmDelete(`Delete <strong>${products[i].name}</strong>?`);
+    if (ok) { products.splice(i,1); renderProducts(); showToast('Product deleted.','danger'); }
+  }
+
+  function openEditProd(i) {
+    const p = products[i];
+    document.getElementById('editProdIdx').value   = i;
+    document.getElementById('editProdName').value  = p.name;
+    document.getElementById('editProdCat').value   = p.cat;
+    document.getElementById('editProdPrice').value = p.price;
+    document.getElementById('editProdCost').value  = p.cost;
+    document.getElementById('editProdStock').value = p.stock;
+    document.getElementById('editProdSKU').value   = p.sku;
+    openModal('editProdModal');
+  }
+
+  function saveEditProduct() {
+    const i = parseInt(document.getElementById('editProdIdx').value);
+    products[i] = {
+      ...products[i],
+      name:  document.getElementById('editProdName').value,
+      cat:   document.getElementById('editProdCat').value,
+      price: parseFloat(document.getElementById('editProdPrice').value)||0,
+      cost:  parseFloat(document.getElementById('editProdCost').value)||0,
+      stock: parseInt(document.getElementById('editProdStock').value)||0,
+      sku:   document.getElementById('editProdSKU').value,
+    };
+    renderProducts();
+    closeModal('editProdModal');
+    showToast('Product updated!','success');
+  }
+
+  initTableSearch('prodSearch','productsTable');
+  renderProducts();
+</script>
+</body>
+</html>

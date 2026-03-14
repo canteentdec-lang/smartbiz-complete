@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBiz – Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">💼</div>
+    <div class="brand-name">Smart<span>Biz</span></div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+
+    <a href="index.html" class="nav-item" data-page="index.html">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-text">Dashboard</span>
+    </a>
+    <a href="sales.html" class="nav-item" data-page="sales.html">
+      <span class="nav-icon">💰</span>
+      <span class="nav-text">Sales / Billing</span>
+    </a>
+    <a href="products.html" class="nav-item" data-page="products.html">
+      <span class="nav-icon">📦</span>
+      <span class="nav-text">Products</span>
+    </a>
+    <a href="analytics.html" class="nav-item" data-page="analytics.html">
+      <span class="nav-icon">📊</span>
+      <span class="nav-text">Analytics</span>
+    </a>
+    <a href="employees.html" class="nav-item" data-page="employees.html">
+      <span class="nav-icon">👥</span>
+      <span class="nav-text">Employees</span>
+    </a>
+
+    <div class="nav-label" style="margin-top:10px">Business</div>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">📣</span>
+      <span class="nav-text">Marketing</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">📄</span>
+      <span class="nav-text">Reports</span>
+    </a>
+
+    <div class="nav-label" style="margin-top:10px">System</div>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-text">Settings</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">RK</div>
+      <div class="user-info">
+        <div class="user-name">Raj Kumar</div>
+        <div class="user-role">Administrator</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════ MAIN WRAPPER ═══════ -->
+<div class="main-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="header-menu-btn" id="menuBtn">☰</button>
+    <div class="header-title">Dashboard</div>
+
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search anything…" />
+    </div>
+
+    <div class="header-actions">
+      <span class="header-date" id="headerDate"></span>
+      <button class="header-icon-btn" title="Notifications">
+        🔔
+        <span class="notif-dot"></span>
+      </button>
+      <button class="header-icon-btn" title="Settings">⚙️</button>
+      <div class="header-profile">
+        <div class="profile-avatar">RK</div>
+        <span class="profile-name">Raj Kumar</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="page-content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Business Overview</h1>
+        <p>Welcome back, Raj! Here's what's happening with your business today.</p>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-outline btn-sm" onclick="showToast('Report generated!','success')">📥 Export Report</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('quickAddModal')">+ Quick Add</button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid section-gap">
+      <div class="stat-card">
+        <div class="stat-icon gradient-primary">💵</div>
+        <div class="stat-body">
+          <div class="stat-value">₹84,250</div>
+          <div class="stat-label">Today's Revenue</div>
+          <div class="stat-growth up">▲ 12.4% vs yesterday</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-secondary">🛒</div>
+        <div class="stat-body">
+          <div class="stat-value">1,284</div>
+          <div class="stat-label">Total Sales</div>
+          <div class="stat-growth up">▲ 8.1% this month</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-success">📦</div>
+        <div class="stat-body">
+          <div class="stat-value">342</div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-growth up">▲ 5 new added</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-warning">⚠️</div>
+        <div class="stat-body">
+          <div class="stat-value">18</div>
+          <div class="stat-label">Low Stock Alerts</div>
+          <div class="stat-growth down">▼ Needs restocking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-grid section-gap">
+      <!-- Revenue Line Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Revenue Trend</div>
+            <div class="card-subtitle">Monthly revenue performance</div>
+          </div>
+          <select class="form-control" style="width:auto;padding:6px 28px 6px 12px;font-size:.8rem">
+            <option>Last 6 months</option>
+            <option>Last 12 months</option>
+          </select>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:260px">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Product Categories</div>
+            <div class="card-subtitle">Sales distribution</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:260px">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Sales + Top Products -->
+    <div class="two-col-grid section-gap">
+      <!-- Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Weekly Sales</div>
+            <div class="card-subtitle">Units sold per day</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:220px">
+            <canvas id="weeklyChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Products -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Top Selling Products</div>
+          <a href="products.html" class="btn btn-outline btn-sm">View All</a>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div class="mini-list">
+            <div class="mini-list-item">
+              <div class="mini-rank">1</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Wireless Earbuds Pro</div>
+                <div class="mini-list-sub">Electronics · 284 units</div>
+              </div>
+              <div class="mini-list-value">₹1,42,000</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">2</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Smart Watch Series 5</div>
+                <div class="mini-list-sub">Electronics · 196 units</div>
+              </div>
+              <div class="mini-list-value">₹98,000</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">3</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Premium Backpack</div>
+                <div class="mini-list-sub">Accessories · 158 units</div>
+              </div>
+              <div class="mini-list-value">₹63,200</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">4</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Desk Organizer Set</div>
+                <div class="mini-list-sub">Office · 134 units</div>
+              </div>
+              <div class="mini-list-value">₹26,800</div>
+            </div>
+            <div class="mini-list-item">
+              <div class="mini-rank">5</div>
+              <div class="mini-list-info">
+                <div class="mini-list-name">Running Sneakers X</div>
+                <div class="mini-list-sub">Footwear · 112 units</div>
+              </div>
+              <div class="mini-list-value">₹56,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Transactions Table -->
+    <div class="card section-gap">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Recent Transactions</div>
+          <div class="card-subtitle">Latest 5 sales activities</div>
+        </div>
+        <a href="sales.html" class="btn btn-primary btn-sm">View All Sales</a>
+      </div>
+      <div class="card-body no-pad">
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#SL-1001</td>
+                <td>Wireless Earbuds Pro</td>
+                <td>Electronics</td>
+                <td><strong>₹4,999</strong></td>
+                <td>14 Mar 2026</td>
+                <td><span class="badge badge-success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>#SL-1002</td>
+                <td>Smart Watch Series 5</td>
+                <td>Electronics</td>
+                <td><strong>₹8,499</strong></td>
+                <td>14 Mar 2026</td>
+                <td><span class="badge badge-success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>#SL-1003</td>
+                <td>Premium Backpack</td>
+                <td>Accessories</td>
+                <td><strong>₹2,199</strong></td>
+                <td>13 Mar 2026</td>
+                <td><span class="badge badge-warning">Pending</span></td>
+              </tr>
+              <tr>
+                <td>#SL-1004</td>
+                <td>Desk Organizer Set</td>
+                <td>Office</td>
+                <td><strong>₹899</strong></td>
+                <td>13 Mar 2026</td>
+                <td><span class="badge badge-success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>#SL-1005</td>
+                <td>Running Sneakers X</td>
+                <td>Footwear</td>
+                <td><strong>₹3,499</strong></td>
+                <td>12 Mar 2026</td>
+                <td><span class="badge badge-danger">Cancelled</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Quick Add Modal -->
+<div class="modal-overlay" id="quickAddModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">Quick Add Sale</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="grid-template-columns:1fr 1fr">
+        <div class="form-group">
+          <label class="form-label">Product Name <span>*</span></label>
+          <input type="text" class="form-control" placeholder="Enter product name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <div class="select-wrapper">
+            <select class="form-control">
+              <option>Electronics</option>
+              <option>Accessories</option>
+              <option>Office</option>
+              <option>Footwear</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unit Price <span>*</span></label>
+          <input type="number" class="form-control" id="qModalPrice" placeholder="₹0.00" oninput="calcQModalTotal()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quantity <span>*</span></label>
+          <input type="number" class="form-control" id="qModalQty" placeholder="1" oninput="calcQModalTotal()" />
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">Total Amount</label>
+          <input type="text" class="form-control" id="qModalTotal" readonly placeholder="Auto-calculated" style="background:#f9fafb;font-weight:700;color:var(--primary)" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('quickAddModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="handleQuickAdd()">Add Sale</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  // ── Charts ────────────────────────────────────────
+  const ctx1 = document.getElementById('revenueChart').getContext('2d');
+  const grad1 = ctx1.createLinearGradient(0,0,0,260);
+  grad1.addColorStop(0,'rgba(99,102,241,.35)');
+  grad1.addColorStop(1,'rgba(99,102,241,.0)');
+
+  new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['Oct','Nov','Dec','Jan','Feb','Mar'],
+      datasets: [{
+        label: 'Revenue (₹)',
+        data: [420000,580000,510000,690000,740000,842500],
+        borderColor: '#6366F1',
+        backgroundColor: grad1,
+        borderWidth: 3,
+        tension: .45,
+        fill: true,
+        pointBackgroundColor: '#6366F1',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { grid:{ display:false }, ticks:{ font:{family:'Inter',size:11}, color:'#6B7280' } },
+        y: {
+          grid: { color:'rgba(0,0,0,.05)' },
+          ticks: {
+            font:{family:'Inter',size:11},
+            color:'#6B7280',
+            callback: v => '₹' + (v/1000).toFixed(0) + 'k'
+          }
+        }
+      }
+    }
+  });
+
+  // Category Donut
+  new Chart(document.getElementById('categoryChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Electronics','Accessories','Office','Footwear','Others'],
+      datasets: [{
+        data: [38, 22, 15, 14, 11],
+        backgroundColor: ['#6366F1','#14B8A6','#22C55E','#F59E0B','#EF4444'],
+        borderWidth: 0,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      cutout: '70%',
+      plugins: {
+        ...chartDefaults.plugins,
+        legend: { ...chartDefaults.plugins.legend, position: 'bottom' }
+      }
+    }
+  });
+
+  // Weekly Sales Bar
+  const ctx3 = document.getElementById('weeklyChart').getContext('2d');
+  const grad3 = ctx3.createLinearGradient(0,0,0,220);
+  grad3.addColorStop(0,'#6366F1');
+  grad3.addColorStop(1,'#8B5CF6');
+
+  new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      datasets: [{
+        label: 'Units Sold',
+        data: [84,120,97,145,168,210,156],
+        backgroundColor: grad3,
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      ...chartDefaults,
+      scales: {
+        x: { grid:{display:false}, ticks:{font:{family:'Inter',size:11},color:'#6B7280'} },
+        y: { grid:{color:'rgba(0,0,0,.05)'}, ticks:{font:{family:'Inter',size:11},color:'#6B7280'} }
+      }
+    }
+  });
+
+  // Quick Add Modal total calc
+  function calcQModalTotal() {
+    const p = parseFloat(document.getElementById('qModalPrice').value) || 0;
+    const q = parseFloat(document.getElementById('qModalQty').value)   || 0;
+    document.getElementById('qModalTotal').value = p && q ? '₹' + (p * q).toLocaleString('en-IN') : '';
+  }
+  function handleQuickAdd() {
+    showToast('Sale added successfully!', 'success');
+    closeModal('quickAddModal');
+  }
+</script>
+</body>
+</html>

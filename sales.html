@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBiz – Sales / Billing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">💼</div>
+    <div class="brand-name">Smart<span>Biz</span></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+    <a href="index.html"    class="nav-item" data-page="index.html"><span class="nav-icon">🏠</span><span class="nav-text">Dashboard</span></a>
+    <a href="sales.html"    class="nav-item" data-page="sales.html"><span class="nav-icon">💰</span><span class="nav-text">Sales / Billing</span></a>
+    <a href="products.html" class="nav-item" data-page="products.html"><span class="nav-icon">📦</span><span class="nav-text">Products</span></a>
+    <a href="analytics.html" class="nav-item" data-page="analytics.html"><span class="nav-icon">📊</span><span class="nav-text">Analytics</span></a>
+    <a href="employees.html" class="nav-item" data-page="employees.html"><span class="nav-icon">👥</span><span class="nav-text">Employees</span></a>
+    <div class="nav-label" style="margin-top:10px">Business</div>
+    <a href="#" class="nav-item"><span class="nav-icon">📣</span><span class="nav-text">Marketing</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">📄</span><span class="nav-text">Reports</span></a>
+    <div class="nav-label" style="margin-top:10px">System</div>
+    <a href="#" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">RK</div>
+      <div class="user-info"><div class="user-name">Raj Kumar</div><div class="user-role">Administrator</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════ MAIN WRAPPER ═══════ -->
+<div class="main-wrapper">
+  <header class="header">
+    <button class="header-menu-btn" id="menuBtn">☰</button>
+    <div class="header-title">Sales / Billing</div>
+    <div class="header-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search sales…" />
+    </div>
+    <div class="header-actions">
+      <span class="header-date" id="headerDate"></span>
+      <button class="header-icon-btn">🔔<span class="notif-dot"></span></button>
+      <button class="header-icon-btn">⚙️</button>
+      <div class="header-profile">
+        <div class="profile-avatar">RK</div>
+        <span class="profile-name">Raj Kumar</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Sales / Billing</h1>
+        <p>Manage all your sales transactions and invoices in one place.</p>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="stats-grid section-gap">
+      <div class="stat-card">
+        <div class="stat-icon gradient-primary">💵</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalRevStat">₹0</div>
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-growth up">▲ 12% this month</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-secondary">🛒</div>
+        <div class="stat-body">
+          <div class="stat-value" id="totalSalesStat">0</div>
+          <div class="stat-label">Total Sales</div>
+          <div class="stat-growth up">▲ 8 today</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-success">✅</div>
+        <div class="stat-body">
+          <div class="stat-value" id="completedStat">0</div>
+          <div class="stat-label">Completed</div>
+          <div class="stat-growth up">▲ 94% rate</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gradient-warning">⏳</div>
+        <div class="stat-body">
+          <div class="stat-value" id="pendingStat">0</div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-growth down">▼ Needs action</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Sale Form -->
+    <div class="card section-gap">
+      <div class="card-header">
+        <div>
+          <div class="card-title">➕ Add New Sale</div>
+          <div class="card-subtitle">Fill in the details to record a new sale</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Product Name <span>*</span></label>
+            <input type="text" class="form-control" id="saleProduct" placeholder="e.g. Wireless Earbuds" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category <span>*</span></label>
+            <div class="select-wrapper">
+              <select class="form-control" id="saleCat">
+                <option value="">Select category</option>
+                <option>Electronics</option>
+                <option>Accessories</option>
+                <option>Office</option>
+                <option>Footwear</option>
+                <option>Clothing</option>
+                <option>Food & Beverage</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit Price (₹) <span>*</span></label>
+            <input type="number" class="form-control" id="salePrice" placeholder="0.00" min="0" step="0.01" oninput="calcTotal()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity <span>*</span></label>
+            <input type="number" class="form-control" id="saleQty" placeholder="1" min="1" oninput="calcTotal()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sale Date</label>
+            <input type="date" class="form-control" id="saleDate" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div class="select-wrapper">
+              <select class="form-control" id="saleStatus">
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group span-full">
+            <label class="form-label">Total Amount (Auto-calculated)</label>
+            <input type="text" class="form-control" id="saleTotal" readonly placeholder="Will calculate automatically"
+                   style="background:#f9fafb;font-weight:700;font-size:1.05rem;color:var(--primary)" />
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:16px">
+          <button class="btn btn-outline" onclick="resetSaleForm()">↺ Reset</button>
+          <button class="btn btn-primary" onclick="addSale()">✓ Add Sale</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sales Table -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Sales Records</div>
+          <div class="card-subtitle" id="salesCount">Loading…</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <div class="table-search">
+            <span class="table-search-icon">🔍</span>
+            <input type="text" id="salesSearch" placeholder="Search sales…" />
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="exportTableCSV('salesTable','SmartBiz-Sales.csv')">📥 Export</button>
+        </div>
+      </div>
+      <div class="card-body no-pad">
+        <div class="table-wrapper">
+          <table class="data-table" id="salesTable">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="salesTableBody">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editSaleModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">✏️ Edit Sale</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <input type="hidden" id="editIdx" />
+        <div class="form-group">
+          <label class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="editProduct" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="editCat">
+              <option>Electronics</option><option>Accessories</option>
+              <option>Office</option><option>Footwear</option>
+              <option>Clothing</option><option>Food & Beverage</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unit Price (₹)</label>
+          <input type="number" class="form-control" id="editPrice" oninput="calcEditTotal()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input type="number" class="form-control" id="editQty" oninput="calcEditTotal()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" id="editDate" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="select-wrapper">
+            <select class="form-control" id="editStatus">
+              <option>Completed</option><option>Pending</option><option>Cancelled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('editSaleModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditSale()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  // ── Sample data ──────────────────────────────────
+  let sales = [
+    { id:'SL-1001', product:'Wireless Earbuds Pro', cat:'Electronics', price:4999, qty:2, date:'2026-03-14', status:'Completed' },
+    { id:'SL-1002', product:'Smart Watch Series 5',  cat:'Electronics', price:8499, qty:1, date:'2026-03-14', status:'Completed' },
+    { id:'SL-1003', product:'Premium Backpack',       cat:'Accessories', price:2199, qty:3, date:'2026-03-13', status:'Pending'   },
+    { id:'SL-1004', product:'Desk Organizer Set',     cat:'Office',      price:899,  qty:5, date:'2026-03-13', status:'Completed' },
+    { id:'SL-1005', product:'Running Sneakers X',     cat:'Footwear',    price:3499, qty:1, date:'2026-03-12', status:'Cancelled' },
+    { id:'SL-1006', product:'Bluetooth Speaker',      cat:'Electronics', price:1999, qty:4, date:'2026-03-12', status:'Completed' },
+    { id:'SL-1007', product:'Yoga Mat',               cat:'Other',       price:749,  qty:6, date:'2026-03-11', status:'Completed' },
+  ];
+  let saleCounter = 1008;
+
+  function badgeClass(s) {
+    return s==='Completed'?'badge-success': s==='Pending'?'badge-warning':'badge-danger';
+  }
+
+  function renderSales() {
+    const tbody = document.getElementById('salesTableBody');
+    tbody.innerHTML = sales.length ? sales.map((s,i) => `
+      <tr>
+        <td><span style="font-weight:600;color:var(--primary)">#${s.id}</span></td>
+        <td><strong>${s.product}</strong></td>
+        <td><span class="badge badge-secondary">${s.cat}</span></td>
+        <td>₹${s.price.toLocaleString('en-IN')}</td>
+        <td>${s.qty}</td>
+        <td><strong>₹${(s.price*s.qty).toLocaleString('en-IN')}</strong></td>
+        <td>${new Date(s.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</td>
+        <td><span class="badge ${badgeClass(s.status)}">${s.status}</span></td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-icon btn-sm" title="Edit" onclick="openEdit(${i})">✏️</button>
+            <button class="btn btn-ghost btn-icon btn-sm" title="Delete" onclick="deleteSale(${i})" style="color:var(--danger)">🗑️</button>
+          </div>
+        </td>
+      </tr>`).join('')
+    : `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted)">No sales records found.</td></tr>`;
+
+    updateStats();
+  }
+
+  function updateStats() {
+    const total    = sales.reduce((a,s)=> a + s.price*s.qty, 0);
+    const completed= sales.filter(s=>s.status==='Completed').length;
+    const pending  = sales.filter(s=>s.status==='Pending').length;
+    document.getElementById('totalRevStat').textContent    = '₹'+total.toLocaleString('en-IN');
+    document.getElementById('totalSalesStat').textContent  = sales.length;
+    document.getElementById('completedStat').textContent   = completed;
+    document.getElementById('pendingStat').textContent     = pending;
+    document.getElementById('salesCount').textContent      = `${sales.length} records found`;
+  }
+
+  function calcTotal() {
+    const p = parseFloat(document.getElementById('salePrice').value)||0;
+    const q = parseFloat(document.getElementById('saleQty').value)||0;
+    document.getElementById('saleTotal').value = p&&q ? '₹'+(p*q).toLocaleString('en-IN') : '';
+  }
+
+  function addSale() {
+    const product = document.getElementById('saleProduct').value.trim();
+    const cat     = document.getElementById('saleCat').value;
+    const price   = parseFloat(document.getElementById('salePrice').value);
+    const qty     = parseInt(document.getElementById('saleQty').value);
+    const date    = document.getElementById('saleDate').value || new Date().toISOString().split('T')[0];
+    const status  = document.getElementById('saleStatus').value;
+
+    if (!product || !cat || !price || !qty) {
+      showToast('Please fill in all required fields.','danger'); return;
+    }
+    sales.unshift({ id:`SL-${saleCounter++}`, product, cat, price, qty, date, status });
+    renderSales();
+    resetSaleForm();
+    showToast('Sale added successfully!','success');
+  }
+
+  function resetSaleForm() {
+    ['saleProduct','salePrice','saleQty','saleTotal'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('saleCat').value='';
+    document.getElementById('saleStatus').value='Completed';
+    document.getElementById('saleDate').value='';
+  }
+
+  async function deleteSale(i) {
+    const ok = await confirmDelete(`Delete sale <strong>${sales[i].product}</strong>? This action cannot be undone.`);
+    if (ok) { sales.splice(i,1); renderSales(); showToast('Sale deleted.','danger'); }
+  }
+
+  function openEdit(i) {
+    const s = sales[i];
+    document.getElementById('editIdx').value    = i;
+    document.getElementById('editProduct').value= s.product;
+    document.getElementById('editCat').value    = s.cat;
+    document.getElementById('editPrice').value  = s.price;
+    document.getElementById('editQty').value    = s.qty;
+    document.getElementById('editDate').value   = s.date;
+    document.getElementById('editStatus').value = s.status;
+    openModal('editSaleModal');
+  }
+
+  function calcEditTotal() {
+    const p = parseFloat(document.getElementById('editPrice').value)||0;
+    const q = parseFloat(document.getElementById('editQty').value)||0;
+    return p*q;
+  }
+
+  function saveEditSale() {
+    const i = parseInt(document.getElementById('editIdx').value);
+    sales[i] = {
+      ...sales[i],
+      product: document.getElementById('editProduct').value,
+      cat:     document.getElementById('editCat').value,
+      price:   parseFloat(document.getElementById('editPrice').value),
+      qty:     parseInt(document.getElementById('editQty').value),
+      date:    document.getElementById('editDate').value,
+      status:  document.getElementById('editStatus').value,
+    };
+    renderSales();
+    closeModal('editSaleModal');
+    showToast('Sale updated successfully!','success');
+  }
+
+  // Set today's date as default
+  document.getElementById('saleDate').value = new Date().toISOString().split('T')[0];
+
+  initTableSearch('salesSearch','salesTable');
+  renderSales();
+</script>
+</body>
+</html>
